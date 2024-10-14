@@ -1,6 +1,7 @@
 import { COMMANDS } from "./constants.js";
 import { read, create, rename, copy, move, remove } from "./fs/index.js";
 import { up, ls, cd } from "./nav/index.js";
+import getOSInfo from "./os/getOSInfo.js";
 import {
   cmdLineParser,
   InvalidInputError,
@@ -40,9 +41,9 @@ export default async function controller(line) {
       case COMMANDS.rm.cmd:
         await remove(args);
         break;
-      // case "os":
-      //   getOSInfo(line);
-      //   break;
+      case COMMANDS.os.cmd:
+        getOSInfo(args);
+        break;
       // case "hash":
       //   await calculateHash(line);
       //   break;

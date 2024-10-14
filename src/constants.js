@@ -8,4 +8,5 @@ export const COMMANDS = {
   cp: { cmd: "cp", argsLength: 2 },
   mv: { cmd: "mv", argsLength: 2 },
   rm: { cmd: "rm", argsLength: 1 },
+  os: { cmd: "os", argsLength: 1 },
 };
