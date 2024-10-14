@@ -3,6 +3,7 @@ import { read, create, rename, copy, move, remove } from "./fs/index.js";
 import calculateHash from "./hash/calculateHash.js";
 import { up, ls, cd } from "./nav/index.js";
 import getOSInfo from "./os/getOSInfo.js";
+import { compress, decompress } from "./zip/index.js";
 import {
   cmdLineParser,
   InvalidInputError,
@@ -48,23 +49,23 @@ export default async function controller(line) {
       case COMMANDS.hash.cmd:
         await calculateHash(args);
         break;
-      // case "compress":
-      //   await compress(line);
-      //   break;
-      // case "decompress":
-      //   await decompress(line);
-      //   break;
+      case COMMANDS.compress.cmd:
+        await compress(args);
+        break;
+      case COMMANDS.decompress.cmd:
+        await decompress(args);
+        break;
       case ".exit":
         this.close();
         break;
       default:
-        console.log("Invalid input");
+        console.log("Invalid input!");
         break;
     }
   } catch (err) {
     if (err instanceof InvalidInputError)
       console.log(`Invalid Input: ${err.message}`);
-    else console.error(err);
+    else console.log(`Operation failed: ${err.message}`);
   } finally {
     showCurrentDirectory();
     this.prompt();
