@@ -1,9 +1,54 @@
-import { showCurrentDirectory } from "./utils/index.js";
+import {
+  cmdLineParser,
+  InvalidInputError,
+  showCurrentDirectory,
+  validateCommand,
+} from "./utils/index.js";
 
 export default async function controller(line) {
-  const cmd = line.trim().split(" ")[0];
+  const [cmd, ...args] = cmdLineParser(line);
   try {
+    await validateCommand(cmd, args);
     switch (cmd) {
+      // case "up":
+      //   up(line);
+      //   break;
+      // case "ls":
+      //   await ls();
+      //   break;
+      // case "cd":
+      //   await cd(line);
+      //   break;
+      // case "cat":
+      //   await read(line);
+      //   break;
+      // case "add":
+      //   await create(line);
+      //   break;
+      // case "rn":
+      //   await rename(line);
+      //   break;
+      // case "cp":
+      //   await copy(line);
+      //   break;
+      // case "mv":
+      //   await move(line);
+      //   break;
+      // case "rm":
+      //   await remove(line);
+      //   break;
+      // case "os":
+      //   getOSInfo(line);
+      //   break;
+      // case "hash":
+      //   await calculateHash(line);
+      //   break;
+      // case "compress":
+      //   await compress(line);
+      //   break;
+      // case "decompress":
+      //   await decompress(line);
+      //   break;
       case ".exit":
         this.close();
         break;
@@ -12,7 +57,9 @@ export default async function controller(line) {
         break;
     }
   } catch (err) {
-    console.log("Operation failed");
+    if (err instanceof InvalidInputError)
+      console.log(`Invalid Input: ${err.message}`);
+    else console.log("Operation failed");
   } finally {
     showCurrentDirectory();
     this.prompt();
