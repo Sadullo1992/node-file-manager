@@ -1,5 +1,6 @@
 import { COMMANDS } from "./constants.js";
 import { read, create, rename, copy, move, remove } from "./fs/index.js";
+import calculateHash from "./hash/calculateHash.js";
 import { up, ls, cd } from "./nav/index.js";
 import getOSInfo from "./os/getOSInfo.js";
 import {
@@ -44,9 +45,9 @@ export default async function controller(line) {
       case COMMANDS.os.cmd:
         getOSInfo(args);
         break;
-      // case "hash":
-      //   await calculateHash(line);
-      //   break;
+      case COMMANDS.hash.cmd:
+        await calculateHash(args);
+        break;
       // case "compress":
       //   await compress(line);
       //   break;
