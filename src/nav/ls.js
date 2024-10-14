@@ -1,14 +1,28 @@
 import { readdir } from "node:fs/promises";
 
 const ls = async () => {
-  const files = await readdir(process.cwd(), { withFileTypes: true });
+  const contents = await readdir(process.cwd(), { withFileTypes: true });
 
-  const printFiles = files.map((item) => ({
-    name: item.name,
-    type: item.isDirectory() ? "directory" : "file",
-  }));
+  const folders = [];
+  const files = [];
 
-  console.table(printFiles);
+  for (const item of contents) {
+    if (item.isDirectory())
+      folders.push({
+        name: item.name,
+        type: "directory",
+      });
+    else
+      files.push({
+        name: item.name,
+        type: "file",
+      });
+  }
+
+  folders.sort((a, b) => a.name.localeCompare(b.name));
+  files.sort((a, b) => a.name.localeCompare(b.name));
+
+  console.table([...folders, ...files]);
 };
 
 export default ls;
