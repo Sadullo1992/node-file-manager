@@ -1,4 +1,5 @@
 import { COMMANDS } from "./constants.js";
+import { read, create, rename, copy, move, remove } from "./fs/index.js";
 import { up, ls, cd } from "./nav/index.js";
 import {
   cmdLineParser,
@@ -21,24 +22,24 @@ export default async function controller(line) {
       case COMMANDS.cd.cmd:
         await cd(args);
         break;
-      // case "cat":
-      //   await read(line);
-      //   break;
-      // case "add":
-      //   await create(line);
-      //   break;
-      // case "rn":
-      //   await rename(line);
-      //   break;
-      // case "cp":
-      //   await copy(line);
-      //   break;
-      // case "mv":
-      //   await move(line);
-      //   break;
-      // case "rm":
-      //   await remove(line);
-      //   break;
+      case COMMANDS.cat.cmd:
+        await read(args);
+        break;
+      case COMMANDS.add.cmd:
+        await create(args);
+        break;
+      case COMMANDS.rn.cmd:
+        await rename(args);
+        break;
+      case COMMANDS.cp.cmd:
+        await copy(args);
+        break;
+      case COMMANDS.mv.cmd:
+        await move(args);
+        break;
+      case COMMANDS.rm.cmd:
+        await remove(args);
+        break;
       // case "os":
       //   getOSInfo(line);
       //   break;
