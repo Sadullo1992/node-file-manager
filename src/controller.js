@@ -1,3 +1,5 @@
+import { COMMANDS } from "./constants.js";
+import { up, ls, cd } from "./nav/index.js";
 import {
   cmdLineParser,
   InvalidInputError,
@@ -10,15 +12,15 @@ export default async function controller(line) {
   try {
     await validateCommand(cmd, args);
     switch (cmd) {
-      // case "up":
-      //   up(line);
-      //   break;
-      // case "ls":
-      //   await ls();
-      //   break;
-      // case "cd":
-      //   await cd(line);
-      //   break;
+      case COMMANDS.up.cmd:
+        up();
+        break;
+      case COMMANDS.ls.cmd:
+        await ls();
+        break;
+      case COMMANDS.cd.cmd:
+        await cd(args);
+        break;
       // case "cat":
       //   await read(line);
       //   break;
@@ -59,7 +61,7 @@ export default async function controller(line) {
   } catch (err) {
     if (err instanceof InvalidInputError)
       console.log(`Invalid Input: ${err.message}`);
-    else console.log("Operation failed");
+    else console.error(err);
   } finally {
     showCurrentDirectory();
     this.prompt();
